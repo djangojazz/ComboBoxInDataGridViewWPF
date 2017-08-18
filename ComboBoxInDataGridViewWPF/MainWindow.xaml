@@ -6,7 +6,35 @@
         xmlns:local="clr-namespace:ComboBoxInDataGridViewWPF"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
+  <Window.Resources>
+    <CollectionViewSource x:Key="Types" Source="{Binding Types}"/>
+  </Window.Resources>
     <Grid>
-        
-    </Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="*"/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="*"/>
+    </Grid.RowDefinitions>
+    <Label Content="SimpleExample" />
+    <DataGrid Grid.Row="1" ItemsSource="{Binding Simples}" AutoGenerateColumns="False">
+      <DataGrid.Columns>
+        <DataGridTextColumn Header="TransactionId" Binding="{Binding TransactionId}" />
+        <DataGridTextColumn Header="Description" Binding="{Binding Description}" />
+        <DataGridComboBoxColumn Header="Type" ItemsSource="{Binding Source={StaticResource Types}}" DisplayMemberPath="TypeName" SelectedValuePath="TypeId" SelectedValueBinding="{Binding Path=TypeId}" />
+        <DataGridTextColumn Header="Amount" Binding="{Binding Amount}" />
+      </DataGrid.Columns>
+    </DataGrid>
+    <Border Grid.Row="2" Height="50" Background="Black" />
+    <Label Content="ComplexObjectExample" Grid.Row="3" />
+    <DataGrid Grid.Row="4" ItemsSource="{Binding Complexes}" AutoGenerateColumns="False">
+      <DataGrid.Columns>
+        <DataGridTextColumn Header="TransactionId" Binding="{Binding TransactionId}" />
+        <DataGridTextColumn Header="Description" Binding="{Binding Description}" />
+        <DataGridComboBoxColumn Header="Type" ItemsSource="{Binding Source={StaticResource Types}}" DisplayMemberPath="TypeName" SelectedValuePath="TypeId" SelectedValueBinding="{Binding Path=Type}" />
+        <DataGridTextColumn Header="Amount" Binding="{Binding Amount}" />
+      </DataGrid.Columns>
+    </DataGrid>
+  </Grid>
 </Window>
