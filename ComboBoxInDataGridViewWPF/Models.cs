@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace ComboBoxInDataGridViewWPF
 {
@@ -19,7 +20,7 @@ namespace ComboBoxInDataGridViewWPF
   }
 
 
-  public class TransactionSimple
+  public class TransactionSimple : BaseViewModel
   {
     public TransactionSimple(int transactionId, string description, int typeId, decimal amount)
     {
@@ -31,11 +32,22 @@ namespace ComboBoxInDataGridViewWPF
 
     public int TransactionId { get; set; }
     public string Description { get; set; }
-    public int TypeId { get; set; }
+    private int _typeId;
+
+    public int TypeId
+    {
+      get { return _typeId; }
+      set
+      {
+        _typeId = value;
+        OnPropertyChanged(nameof(TypeId));
+      }
+    }
+    
     public decimal Amount { get; set; }
   }
 
-  public class TransactionComplex
+  public class TransactionComplex : BaseViewModel
   {
     public TransactionComplex(int transactionId, string description, int typeId, string typeName, decimal amount)
     {
@@ -47,7 +59,19 @@ namespace ComboBoxInDataGridViewWPF
 
     public int TransactionId { get; set; }
     public string Description { get; set; }
-    public Type Type { get; set; }
+    private Type _type;
+
+    public Type Type
+    {
+      get { return _type; }
+      set
+      {
+        if(_type != null) { MessageBox.Show($"Change to {value.TypeName}"); }
+        _type = value;
+        OnPropertyChanged(nameof(Type));
+      }
+    }
+    
     public decimal Amount { get; set; }
   }
 }

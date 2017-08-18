@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ComboBoxInDataGridViewWPF
 {
-  public sealed class MainWindowViewModel : INotifyPropertyChanged
+  public sealed class MainWindowViewModel : BaseViewModel
   {
     private ObservableCollection<TransactionSimple> _simples;
     private ObservableCollection<TransactionComplex> _complexes;
@@ -59,16 +59,6 @@ namespace ComboBoxInDataGridViewWPF
       Simples = new ObservableCollection<TransactionSimple>(data.Select(x => new TransactionSimple(x.TransactionId, x.Description, x.Type.TypeId, x.Amount)));
     }
     
-    public event PropertyChangedEventHandler PropertyChanged;
-
-    private void OnPropertyChanged(string propertyName)
-    {
-      PropertyChangedEventHandler handler = this.PropertyChanged;
-      if (handler != null)
-      {
-        var e = new PropertyChangedEventArgs(propertyName);
-        handler(this, e);
-      }
-    }
+    
   }
 }
