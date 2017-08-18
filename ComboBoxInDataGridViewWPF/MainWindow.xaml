@@ -47,7 +47,7 @@
           </DataGridTemplateColumn.CellTemplate>
         </DataGridTemplateColumn>-->
 
-        <!--This one works but the initial displays are wrong.-->
+        <!--This one works but the initial displays are wrong. This seems to be the closest to what I want-->
         <DataGridComboBoxColumn Header="Type" SelectedItemBinding="{Binding Type}"  >
           <DataGridComboBoxColumn.ElementStyle>
             <Style TargetType="ComboBox">
