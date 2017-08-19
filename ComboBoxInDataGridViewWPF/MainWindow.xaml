@@ -66,16 +66,16 @@
           </DataGridComboBoxColumn.EditingElementStyle>
         </DataGridComboBoxColumn>
 
-        <!--This one does not work at all
         <DataGridTemplateColumn Header="Type">
           <DataGridTemplateColumn.CellTemplate>
             <DataTemplate>
               <ComboBox ItemsSource="{Binding Path=DataContext.Types,
-                                            RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}"
-                      DisplayMemberPath="TypeName" SelectedItem="{Binding Type}"/>
+                                RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}"
+          DisplayMemberPath="TypeName"
+          SelectedItem="{Binding Path=Type, UpdateSourceTrigger=PropertyChanged}"/>
             </DataTemplate>
           </DataGridTemplateColumn.CellTemplate>
-        </DataGridTemplateColumn>-->
+        </DataGridTemplateColumn>
         <DataGridTextColumn Header="Amount" Binding="{Binding Amount}" />
       </DataGrid.Columns>
     </DataGrid>

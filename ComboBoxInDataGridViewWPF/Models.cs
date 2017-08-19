@@ -39,6 +39,7 @@ namespace ComboBoxInDataGridViewWPF
       get { return _typeId; }
       set
       {
+        if (_typeId != 0) { MessageBox.Show($"Change to {value}"); }
         _typeId = value;
         OnPropertyChanged(nameof(TypeId));
       }
@@ -56,6 +57,14 @@ namespace ComboBoxInDataGridViewWPF
       Type = new Type(typeId, typeName);
       Amount = amount;
     }
+
+    public TransactionComplex (int transactionId, string description, Type type, decimal amount)
+	  {
+      TransactionId = transactionId;
+      Description = description;
+      Type = type;
+      Amount = amount;
+	  }
 
     public int TransactionId { get; set; }
     public string Description { get; set; }

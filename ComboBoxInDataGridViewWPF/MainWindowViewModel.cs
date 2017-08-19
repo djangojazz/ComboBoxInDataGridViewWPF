@@ -18,13 +18,8 @@ namespace ComboBoxInDataGridViewWPF
     {
       FakeRepo();
     }
-
-    private ReadOnlyCollection<Type> _types;
-
-    public ReadOnlyCollection<Type> Types
-    {
-      get => (_types != null) ? _types : _types = new ReadOnlyCollection<Type>(new List<Type> { new Type(1, "Credit"), new Type(2, "Debit") });
-    }
+    
+    ReadOnlyCollection<Type> Types { get; } = new ReadOnlyCollection<Type>(new List<Type> { new Type(1, "Credit"), new Type(2, "Debit") });
 
 
     public ObservableCollection<TransactionSimple> Simples
@@ -50,9 +45,9 @@ namespace ComboBoxInDataGridViewWPF
     {
       var data = new List<TransactionComplex>
       {
-        new TransactionComplex(1, "Got some money", 1, "Credit", 1000m),
-        new TransactionComplex(2, "spent some money", 2, "Debit", 100m),
-        new TransactionComplex(3, "spent some more money", 2, "Debit", 300m)
+        new TransactionComplex(1, "Got some money", Types[0], 1000m),
+        new TransactionComplex(2, "spent some money", Types[1], 100m),
+        new TransactionComplex(3, "spent some more money", Types[1], 300m)
       };
 
       Complexes = new ObservableCollection<TransactionComplex>(data);
