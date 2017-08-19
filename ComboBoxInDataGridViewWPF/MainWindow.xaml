@@ -1,4 +1,4 @@
-﻿<Window x:Class="ComboBoxInDataGridViewWPF.MainWindow"
+<Window x:Class="ComboBoxInDataGridViewWPF.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -22,8 +22,18 @@
       <DataGrid.Columns>
         <DataGridTextColumn Header="TransactionId" Binding="{Binding TransactionId}" />
         <DataGridTextColumn Header="Description" Binding="{Binding Description}" />
-        <DataGridComboBoxColumn Header="Type" ItemsSource="{Binding Source={StaticResource Types}}" DisplayMemberPath="TypeName" SelectedValuePath="TypeId" SelectedValueBinding="{Binding Path=TypeId}" />
-        <DataGridTextColumn Header="Amount" Binding="{Binding Amount}" />
+            <DataGridTemplateColumn Header="Type">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                        <ComboBox ItemsSource="{Binding Path=DataContext.Types,
+                                                        RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}"
+                                  DisplayMemberPath="TypeName"
+                                  SelectedValuePath="TypeId"
+                                  SelectedValue="{Binding Path=TypeId, UpdateSourceTrigger=PropertyChanged}"/>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+            <DataGridTextColumn Header="Amount" Binding="{Binding Amount}" />
       </DataGrid.Columns>
     </DataGrid>
     <Border Grid.Row="2" Height="50" Background="Black" />
@@ -32,49 +42,15 @@
       <DataGrid.Columns>
         <DataGridTextColumn Header="TransactionId" Binding="{Binding TransactionId}" />
         <DataGridTextColumn Header="Description" Binding="{Binding Description}" />
-
-        <!--This one works for the displays but not for the updates
         <DataGridTemplateColumn Header="Type">
-          <DataGridTemplateColumn.CellEditingTemplate>
-            <DataTemplate>
-              <ComboBox ItemsSource="{Binding Source={StaticResource Types}}" DisplayMemberPath="TypeName"  SelectedItem="{Binding Type, Mode=TwoWay}" SelectedValue="{Binding Type.TypeId}" />
-            </DataTemplate>
-          </DataGridTemplateColumn.CellEditingTemplate>
-          <DataGridTemplateColumn.CellTemplate>
-            <DataTemplate>
-              <TextBlock Text="{Binding Type.TypeName}"/>
-            </DataTemplate>
-          </DataGridTemplateColumn.CellTemplate>
-        </DataGridTemplateColumn>-->
-
-        <!--This one works but the initial displays are wrong. This seems to be the closest to what I want-->
-        <DataGridComboBoxColumn Header="Type" SelectedItemBinding="{Binding Type}"  >
-          <DataGridComboBoxColumn.ElementStyle>
-            <Style TargetType="ComboBox">
-              <Setter Property="ItemsSource" Value="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Path=DataContext.Types}"/>
-              <Setter Property="DisplayMemberPath" Value="TypeName" />
-              <Setter Property="SelectedItem" Value="{Binding Type}" />
-              <Setter Property="IsReadOnly" Value="True"/>
-            </Style>
-          </DataGridComboBoxColumn.ElementStyle>
-          <DataGridComboBoxColumn.EditingElementStyle>
-            <Style TargetType="ComboBox">
-              <Setter Property="ItemsSource" Value="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Path=DataContext.Types}"/>
-              <Setter Property="DisplayMemberPath" Value="TypeName" />
-              <Setter Property="SelectedItem" Value="{Binding Type}" />
-            </Style>
-          </DataGridComboBoxColumn.EditingElementStyle>
-        </DataGridComboBoxColumn>
-
-        <DataGridTemplateColumn Header="Type">
-          <DataGridTemplateColumn.CellTemplate>
-            <DataTemplate>
-              <ComboBox ItemsSource="{Binding Path=DataContext.Types,
-                                RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}"
-          DisplayMemberPath="TypeName"
-          SelectedItem="{Binding Path=Type, UpdateSourceTrigger=PropertyChanged}"/>
-            </DataTemplate>
-          </DataGridTemplateColumn.CellTemplate>
+            <DataGridTemplateColumn.CellTemplate>
+                <DataTemplate>
+                    <ComboBox ItemsSource="{Binding Path=DataContext.Types,
+                                                    RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}"
+                              DisplayMemberPath="TypeName"
+                              SelectedItem="{Binding Path=Type, UpdateSourceTrigger=PropertyChanged}"/>
+                </DataTemplate>
+            </DataGridTemplateColumn.CellTemplate>
         </DataGridTemplateColumn>
         <DataGridTextColumn Header="Amount" Binding="{Binding Amount}" />
       </DataGrid.Columns>
