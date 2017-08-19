@@ -19,7 +19,7 @@ namespace ComboBoxInDataGridViewWPF
       FakeRepo();
     }
     
-    ReadOnlyCollection<Type> Types { get; } = new ReadOnlyCollection<Type>(new List<Type> { new Type(1, "Credit"), new Type(2, "Debit") });
+    public ReadOnlyCollection<Type> Types { get; } = new ReadOnlyCollection<Type>(new List<Type> { new Type(1, "Credit"), new Type(2, "Debit") });
 
 
     public ObservableCollection<TransactionSimple> Simples
