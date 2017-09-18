@@ -34,6 +34,8 @@
                 </DataGridTemplateColumn.CellTemplate>
             </DataGridTemplateColumn>
             <DataGridTextColumn Header="Amount" Binding="{Binding Amount}" />
+        <DataGridComboBoxColumn Header="Type" ItemsSource="{Binding Source={StaticResource Types}}" DisplayMemberPath="TypeName" SelectedValuePath="TypeId" SelectedValueBinding="{Binding Path=TypeId}" />
+
       </DataGrid.Columns>
     </DataGrid>
     <Border Grid.Row="2" Height="50" Background="Black" />
